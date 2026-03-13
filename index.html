@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iris Outreach — NJ Contractor Prospects</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-left">
+      <span class="logo">&#128222; Iris Outreach</span>
+      <span class="subtitle">NJ Home-Service Contractor Prospects</span>
+    </div>
+    <div class="header-right">
+      <button class="btn btn-outline" id="exportCsvBtn">&#8659; Export CSV</button>
+      <button class="btn btn-outline" id="importCsvBtn">&#8657; Import CSV</button>
+      <input type="file" id="csvFileInput" accept=".csv" style="display:none" />
+      <button class="btn btn-primary" id="resetBtn">&#8635; Reset Data</button>
+    </div>
+  </header>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar" id="statsBar"></div>
+
+  <!-- FILTERS -->
+  <div class="filters-bar">
+    <input type="text" id="searchInput" placeholder="&#128269; Search company, contact, city..." class="filter-input" />
+    <select id="tradeFilter" class="filter-select">
+      <option value="">All Trades</option>
+    </select>
+    <select id="statusFilter" class="filter-select">
+      <option value="">All Statuses</option>
+      <option value="Not Started">Not Started</option>
+      <option value="Contacted">Contacted</option>
+      <option value="In Progress">In Progress</option>
+      <option value="Follow Up">Follow Up</option>
+      <option value="Closed Won">Closed Won &#127881;</option>
+      <option value="Closed Lost">Closed Lost</option>
+    </select>
+    <select id="countyFilter" class="filter-select">
+      <option value="">All Counties</option>
+    </select>
+    <select id="sortSelect" class="filter-select">
+      <option value="rank">Sort: Rank</option>
+      <option value="score">Sort: ICP Score</option>
+      <option value="company">Sort: Company A-Z</option>
+      <option value="status">Sort: Status</option>
+      <option value="followup">Sort: Follow-Up Date</option>
+    </select>
+    <button class="btn btn-ghost" id="clearFiltersBtn">Clear Filters</button>
+  </div>
+
+  <!-- KANBAN / TABLE TOGGLE -->
+  <div class="view-toggle">
+    <button class="view-btn active" id="tableViewBtn" title="Table View">&#9776; Table</button>
+    <button class="view-btn" id="kanbanViewBtn" title="Kanban View">&#9638; Kanban</button>
+  </div>
+
+  <!-- TABLE VIEW -->
+  <div id="tableView" class="table-container">
+    <table class="prospects-table" id="prospectsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company</th>
+          <th>Trade</th>
+          <th>City</th>
+          <th>Contact</th>
+          <th>Email</th>
+          <th>Score</th>
+          <th>Status</th>
+          <th>Next Action</th>
+          <th>Follow-Up</th>
+          <th>Calls</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="prospectsBody"></tbody>
+    </table>
+  </div>
+
+  <!-- KANBAN VIEW -->
+  <div id="kanbanView" class="kanban-board" style="display:none">
+    <div class="kanban-col" data-status="Not Started">
+      <div class="kanban-col-header"><span class="status-dot status-not-started"></span> Not Started <span class="kanban-count" id="cnt-Not Started"></span></div>
+      <div class="kanban-cards" id="kanban-Not Started"></div>
+    </div>
+    <div class="kanban-col" data-status="Contacted">
+      <div class="kanban-col-header"><span class="status-dot status-contacted"></span> Contacted <span class="kanban-count" id="cnt-Contacted"></span></div>
+      <div class="kanban-cards" id="kanban-Contacted"></div>
+    </div>
+    <div class="kanban-col" data-status="In Progress">
+      <div class="kanban-col-header"><span class="status-dot status-in-progress"></span> In Progress <span class="kanban-count" id="cnt-In Progress"></span></div>
+      <div class="kanban-cards" id="kanban-In Progress"></div>
+    </div>
+    <div class="kanban-col" data-status="Follow Up">
+      <div class="kanban-col-header"><span class="status-dot status-follow-up"></span> Follow Up <span class="kanban-count" id="cnt-Follow Up"></span></div>
+      <div class="kanban-cards" id="kanban-Follow Up"></div>
+    </div>
+    <div class="kanban-col" data-status="Closed Won">
+      <div class="kanban-col-header"><span class="status-dot status-won"></span> Won &#127881; <span class="kanban-count" id="cnt-Closed Won"></span></div>
+      <div class="kanban-cards" id="kanban-Closed Won"></div>
+    </div>
+    <div class="kanban-col" data-status="Closed Lost">
+      <div class="kanban-col-header"><span class="status-dot status-lost"></span> Lost <span class="kanban-count" id="cnt-Closed Lost"></span></div>
+      <div class="kanban-cards" id="kanban-Closed Lost"></div>
+    </div>
+  </div>
+
+  <!-- MODAL -->
+  <div id="prospectModal" class="modal-overlay" style="display:none">
+    <div class="modal-box">
+      <button class="modal-close" id="modalClose">&times;</button>
+      <div id="modalContent"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
